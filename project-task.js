@@ -41,11 +41,61 @@ Step 4: Test Your Solution
 // ============================================
 // 🛠️ Starter Code: processFile Function
 // ============================================
-
+class LibraryItem {
+    constructor(title, id) {
+        this.title = title;
+        this.id = id;
+        this.isAvailable = true;
+    }
+    checkOut() {
+        if(this.isAvailable) {
+            this.isAvailable = false;
+            console.log(`Thank you for checking out ${this.title}.  It will be due back in two weeks.`);
+        } else {
+            console.log(`${this.title} is currently not available.`)
+        }
+    }
+   returnItem() {
+        if(!this.isAvailable) {
+            this.isAvailable = true;
+            console.log(`Thank you for returning ${this.title}.`);
+        } else {
+            console.log(`${this.title} is currently not checked out.`)
+        }
+    }
+}
+class Book extends LibraryItem {
+    constructor (title, id, author, genre) {
+        super (title, id);
+        this.author = author;
+        this.genre = genre;
+    }
+}
+class DVD extends LibraryItem {
+    constructor (title, id, director, duration) {
+        super (title, id);
+        this.director = director;
+        this.duration = duration;
+    }
+}
+class Magazine extends LibraryItem {
+    constructor (title, id, pubilsher, issueNumber) {
+        super (title, id);
+        this.pubilsher = pubilsher;
+        this.issueNumber = issueNumber;
+    }
+}
 function processFile(fileName, fileData) {
   try {
     // TODO: Add input validation here
-    
+    if (!fileName) {
+            throw new ReferenceError("File name is missing");
+        } if (typeof fileData !== "string") {
+            throw new TypeError("File data must be a string");
+        }
+        if (fileData.trim() === "") {
+            throw new Error("File data cannot be empty");
+        }
     // TODO: Implement simulated file processing here
     console.log(`Processing file: ${fileName}`);
     console.log(`File content: ${fileData}`);
@@ -54,9 +104,12 @@ function processFile(fileName, fileData) {
     
   } catch (err) {
     // TODO: Implement error handling
-    console.error(err);
+    console.error("Error:", err.message);
   }
   // TODO: Implement a finally block to close resources
+  finally {
+        console.log("Finished processing attempt.\n");
+    }
 }
 
 // ============================================
