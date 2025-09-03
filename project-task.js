@@ -44,17 +44,28 @@ Step 4: Test Your Solution
 
 function processFile(fileName, fileData) {
   try {
+  if (!fileName)
+    throw new Error ("fileName does not exist.");
+  else
+    if (typeof fileData !== 'string')
+      throw new Error ("fileData should be a string type");
+    else
+      if (fileData === "")
+        throw new Error ("fileData cannot be empty");
     // TODO: Add input validation here
-    
+    if (fileName.endsWith(".txt") && typeof fileData === 'string') {
     // TODO: Implement simulated file processing here
     console.log(`Processing file: ${fileName}`);
     console.log(`File content: ${fileData}`);
-    
+    }
     // TODO: Add simulated file operations (reading/writing)
     
   } catch (err) {
     // TODO: Implement error handling
-    console.error(err);
+    console.error(err.message);
+  }
+    finally{
+    console.log("virtual library closing");
   }
   // TODO: Implement a finally block to close resources
 }
